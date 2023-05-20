@@ -13,13 +13,13 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-button expand="full" (click)="agregarElemento()">Agregar usuario aleatorio</ion-button>
+
   <ion-card>
     <ion-list>
        <!--ETIQUETA DE ITERACIÓN-->
+
       <ion-item *ngFor="let item of items">
-        {{ item }}
-        <ion-label>Hola</ion-label>
+        <ion-label>{{ item.name.first }} {{ item.name.last }}</ion-label>
         <ion-button expand="block" (click)="setOpen(true)"><ion-icon name="information-outline"></ion-icon></ion-button>
         <ion-button expand="block" slot="end" (click)="eliminarElemento(item)" color="danger"><ion-icon name="trash-outline"></ion-icon></ion-button>
         <!--MODAL-->

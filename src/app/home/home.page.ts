@@ -23,19 +23,14 @@ export class HomePage {
     })
   }
 
-  async main(){
-    var datos = await this.getData();
-
-  }
-
   //Funcion que cambia el estado de la bandera
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
   }
 
   //Agrega un elemento a la lista
-  agregarElemento() {
-    this.items.push('');
+  agregarElemento(item:any) {
+    this.items.push(item);
   }
 
   //Elimina un elemento de la lista
@@ -57,5 +52,16 @@ export class HomePage {
     toast.present();
   }
 
-  constructor(private toastController: ToastController) {}
+  async main(){
+    //TRAEMOS LOS VALORES DE LA API
+    var datos = await this.getData();
+
+    //MAPEAMOS LOS VALORES DE LA API Y LOS AGREGAMOS AL ARRAY CREADO
+    datos.map((e:any) => this.agregarElemento(e));
+
+  }
+
+  constructor(private toastController: ToastController) {
+    this.main()
+  }
 }
