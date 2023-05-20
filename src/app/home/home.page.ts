@@ -1,17 +1,32 @@
 import { Component } from '@angular/core';
 import { ToastController } from '@ionic/angular';
+import axios, { AxiosInstance, AxiosResponse, AxiosError, Axios } from 'axios';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
+
 export class HomePage {
   //Bandera de modal
   isModalOpen = false;
 
   //Array que guarda los elementos de la lista
   items: any[] = [];
+
+  async getData(): Promise<any> {
+    return new Promise((resolve)=>{
+      axios.get('https://randomuser.me/api/?results=10').then((response:AxiosResponse)=>{
+        resolve(response.data.results)
+      })
+    })
+  }
+
+  async main(){
+    var datos = await this.getData();
+
+  }
 
   //Funcion que cambia el estado de la bandera
   setOpen(isOpen: boolean) {
