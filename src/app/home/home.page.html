@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      TP4 - Ionic
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,8 +13,36 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-button expand="full" (click)="agregarElemento()">Agregar usuario aleatorio</ion-button>
+  <ion-card>
+    <ion-list>
+       <!--ETIQUETA DE ITERACIÓN-->
+      <ion-item *ngFor="let item of items">
+        {{ item }}
+        <ion-label>Hola</ion-label>
+        <ion-button expand="block" (click)="setOpen(true)"><ion-icon name="information-outline"></ion-icon></ion-button>
+        <ion-button expand="block" slot="end" (click)="eliminarElemento(item)" color="danger"><ion-icon name="trash-outline"></ion-icon></ion-button>
+        <!--MODAL-->
+        <ion-modal [isOpen]="isModalOpen">
+          <ng-template>
+            <!--CABEZA DEL MODAL-->
+            <ion-header>
+              <ion-toolbar>
+                <ion-title>Información</ion-title>
+                <ion-buttons slot="end">
+                  <ion-button (click)="setOpen(false)"><ion-icon name="close-outline"></ion-icon></ion-button>
+                </ion-buttons>
+              </ion-toolbar>
+            </ion-header>
+            <!--CUERPO DEL MODAL-->
+            <ion-content class="ion-padding">
+              <p>Direccion</p>
+              <p>Telefono</p>
+              <p>Mail</p>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+    </ion-list>
+  </ion-card>
 </ion-content>
