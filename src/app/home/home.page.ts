@@ -19,8 +19,6 @@ interface Persona{
 
 export class HomePage {
 
-
-
   //Bandera de modal
   isModalOpen = false;
 
@@ -28,13 +26,6 @@ export class HomePage {
 
   selectedPersona:Persona | undefined;
 
-  async getData(): Promise<any> {
-    return new Promise((resolve)=>{
-      axios.get('https://randomuser.me/api/?results=10').then((response:AxiosResponse)=>{
-        resolve(response.data.results)
-      })
-    })
-  }
 
   //Funcion que cambia el estado de la bandera
   setModalOpen(item:Persona){
@@ -49,6 +40,17 @@ export class HomePage {
   agregarElemento(item:Persona) {
     this.personas.push(item);
   }
+
+  async getData(): Promise<any> {
+    return new Promise((resolve)=>{
+      axios.get('https://randomuser.me/api/?results=10').then((response:AxiosResponse)=>{
+        resolve(response.data.results)
+      }).catch(()=>{
+        this.mostrarToast("ERROR EN LA CONECCION A LA API")
+      })
+    })
+  }
+
 
   //Elimina un elemento de la lista
   async eliminarElemento(item: Persona) {
