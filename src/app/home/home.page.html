@@ -39,7 +39,12 @@
         </ion-header>
         <!--CUERPO DEL MODAL-->
         <ion-content class="ion-padding">
-          <p #lblNombre id="lblNombre" >{{selectedPersona?.nombre}}</p>
+          <p  id="lblNombre" >{{selectedPersona?.nombre}}</p>
+          <p  id="lblApellido" >{{selectedPersona?.apellido}}</p>
+          <p  id="lblEmail" >{{selectedPersona?.email}}</p>
+          <p  id="lblCelular" >{{selectedPersona?.celular}}</p>
+          <p  id="lblLocalidad" >{{selectedPersona?.localizacion}}</p>
+
         </ion-content>
       </ng-template>
     </ion-modal>
