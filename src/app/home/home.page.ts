@@ -1,6 +1,14 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import axios, { AxiosInstance, AxiosResponse, AxiosError, Axios } from 'axios';
+
+interface Persona{
+  nombre:String,
+  apellido:String,
+  email:String,
+  celular:String,
+  localizacion:String,
+}
 
 @Component({
   selector: 'app-home',
@@ -8,12 +16,17 @@ import axios, { AxiosInstance, AxiosResponse, AxiosError, Axios } from 'axios';
   styleUrls: ['home.page.scss'],
 })
 
+
 export class HomePage {
+
+
+
   //Bandera de modal
   isModalOpen = false;
 
-  //Array que guarda los elementos de la lista
-  items: any[] = [];
+  personas: Persona[]=[];
+
+  selectedPersona:Persona | undefined;
 
   async getData(): Promise<any> {
     return new Promise((resolve)=>{
@@ -24,20 +37,24 @@ export class HomePage {
   }
 
   //Funcion que cambia el estado de la bandera
-  setOpen(isOpen: boolean) {
-    this.isModalOpen = isOpen;
+  setModalOpen(item:Persona){
+    this.selectedPersona = item;
+    this.isModalOpen = true;
+  }
+  setModalClose(){
+    this.isModalOpen = false;
   }
 
   //Agrega un elemento a la lista
-  agregarElemento(item:any) {
-    this.items.push(item);
+  agregarElemento(item:Persona) {
+    this.personas.push(item);
   }
 
   //Elimina un elemento de la lista
-  async eliminarElemento(item: any) {
-    const index = this.items.indexOf(item);
+  async eliminarElemento(item: Persona) {
+    const index = this.personas.indexOf(item);
     if (index > -1) {
-      this.items.splice(index, 1);
+      this.personas.splice(index, 1);
       await this.mostrarToast('Elemento eliminado correctamente');
     }
   }
@@ -57,11 +74,18 @@ export class HomePage {
     var datos = await this.getData();
 
     //MAPEAMOS LOS VALORES DE LA API Y LOS AGREGAMOS AL ARRAY CREADO
-    datos.map((e:any) => this.agregarElemento(e));
+    datos.map((e:any) => this.agregarElemento({
+      nombre:e.name.first,
+      apellido:e.name.last,
+      email:e.email,
+      celular:e.phone,
+      localizacion:e.location.name
+    }));
 
   }
 
   constructor(private toastController: ToastController) {
     this.main()
   }
+
 }

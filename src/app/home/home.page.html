@@ -18,31 +18,29 @@
     <ion-list>
        <!--ETIQUETA DE ITERACIÓN-->
 
-      <ion-item *ngFor="let item of items">
-        <ion-label>{{ item.name.first }} {{ item.name.last }}</ion-label>
-        <ion-button expand="block" (click)="setOpen(true)"><ion-icon name="information-outline"></ion-icon></ion-button>
+      <ion-item *ngFor="let item of personas">
+        <ion-label>{{ item.nombre }} {{ item.apellido }}</ion-label>
+        <ion-button expand="block" (click)="setModalOpen(item)"><ion-icon name="information-outline"></ion-icon></ion-button>
         <ion-button expand="block" slot="end" (click)="eliminarElemento(item)" color="danger"><ion-icon name="trash-outline"></ion-icon></ion-button>
-        <!--MODAL-->
-        <ion-modal [isOpen]="isModalOpen">
-          <ng-template>
-            <!--CABEZA DEL MODAL-->
-            <ion-header>
-              <ion-toolbar>
-                <ion-title>Información</ion-title>
-                <ion-buttons slot="end">
-                  <ion-button (click)="setOpen(false)"><ion-icon name="close-outline"></ion-icon></ion-button>
-                </ion-buttons>
-              </ion-toolbar>
-            </ion-header>
-            <!--CUERPO DEL MODAL-->
-            <ion-content class="ion-padding">
-              <p>Direccion</p>
-              <p>Telefono</p>
-              <p>Mail</p>
-            </ion-content>
-          </ng-template>
-        </ion-modal>
       </ion-item>
     </ion-list>
   </ion-card>
+    <!--MODAL-->
+    <ion-modal [isOpen]="isModalOpen">
+      <ng-template>
+        <!--CABEZA DEL MODAL-->
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Información</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="setModalClose()"><ion-icon name="close-outline"></ion-icon></ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <!--CUERPO DEL MODAL-->
+        <ion-content class="ion-padding">
+          <p #lblNombre id="lblNombre" >{{selectedPersona?.nombre}}</p>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
 </ion-content>
