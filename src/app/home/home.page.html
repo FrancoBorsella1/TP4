@@ -21,7 +21,7 @@
       <ion-item *ngFor="let item of personas">
         <ion-label>{{ item.nombre }} {{ item.apellido }}</ion-label>
         <ion-button expand="block" (click)="setModalOpen(item)"><ion-icon name="information-outline"></ion-icon></ion-button>
-        <ion-button expand="block" slot="end" (click)="eliminarElemento(item)" color="danger"><ion-icon name="trash-outline"></ion-icon></ion-button>
+        <ion-button expand="block" slot="end" (click)="presentAlertConfirm(item)" color="danger"><ion-icon name="trash-outline"></ion-icon></ion-button>
       </ion-item>
     </ion-list>
   </ion-card>
@@ -39,10 +39,10 @@
         </ion-header>
         <!--CUERPO DEL MODAL-->
         <ion-content class="ion-padding">
-          <p  id="lblNombre" >{{selectedPersona?.nombre}}</p>
-          <p  id="lblApellido" >{{selectedPersona?.apellido}}</p>
-          <p  id="lblEmail" >{{selectedPersona?.email}}</p>
-          <p  id="lblCelular" >{{selectedPersona?.celular}}</p>
+          <p  id="lblNombre" >Nombre: {{selectedPersona?.nombre}}</p>
+          <p  id="lblApellido" >Apellido: {{selectedPersona?.apellido}}</p>
+          <p  id="lblEmail" >Email: {{selectedPersona?.email}}</p>
+          <p  id="lblCelular" >Teléfono: {{selectedPersona?.celular}}</p>
           <p  id="lblLocalidad" >{{selectedPersona?.localizacion}}</p>
 
         </ion-content>

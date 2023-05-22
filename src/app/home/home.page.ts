@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 import axios, { AxiosInstance, AxiosResponse, AxiosError, Axios } from 'axios';
 import { Preferences } from '@capacitor/preferences';
 
@@ -73,6 +73,33 @@ export class HomePage {
       this.personas.splice(index, 1);
       await this.mostrarToast('Elemento eliminado correctamente');
     }
+  }
+
+  //Confirmar eliminación del elemento
+  async presentAlertConfirm(persona: Persona) {
+    const alert = await this.alertController.create({
+      header: 'Eliminar',
+      message: '¿Está seguro de que desea eliminar este elemento?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Eliminación cancelada');
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            console.log('Elemento eliminado');
+            this.eliminarElemento(persona)
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   //Muestra mensaje de eliminación correcta de un elemento de la lista
@@ -171,7 +198,7 @@ export class HomePage {
     }
   }
 
-  constructor(private toastController: ToastController) {
+  constructor(private toastController: ToastController, private alertController: AlertController) {
     this.main()
 
   }
